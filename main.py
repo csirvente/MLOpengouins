@@ -1,0 +1,64 @@
+from pengouins.data import load_data,get_X_y,split_data, preprocess_data
+from pengouins.model import train_model,evaluate_model   
+from pengouins.registry import save_model, load_model
+import seaborn as sns
+
+
+url_file = "./data/penguins.csv"
+url_model = "./models/trained_model.pkl"
+target_column = "species"
+model_name = "penguin_classifier"
+
+def create_folders(path):
+    import os
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+def create_sample_data():
+    create_folders('./data')
+    df_penguins = sns.load_dataset("penguins")
+    df_penguins.to_csv('./data/penguins.csv', index=False) 
+
+if __name__ == "__main__":
+    
+    create_sample_data()
+    
+    # Load data
+    data = load_data(url_file)
+    
+
+    # # Split data into features and target
+    X, y = get_X_y(data, target_column=target_column)
+
+
+
+
+    # # Split data into training and testing sets
+    X_train, X_test, y_train, y_test = split_data(X, y, test_size=0.2, random_state=42)
+    
+    
+    # # Preprocess data
+    preprocess_data(X_train, fit=True) #on entraine le preprocess sur le train
+    
+    X_train = preprocess_data(X_train, fit=False) #on applique le preprocess sur le train
+    X_test = preprocess_data(X_test, fit=False) #on applique le preprocess sur le test
+    
+
+    
+    # # Train model
+    model = train_model(X_train, y_train)
+
+    # # Evaluate model
+    evaluation_results = evaluate_model(model, X_test, y_test)
+    print("Evaluation Results:", evaluation_results)
+
+    # # Save model
+    create_folders('./models')
+    save_model(model,url_model)
+
+    # # Load model (for demonstration)
+    loaded_model = load_model(url_model)
+    
+    evaluation_results = evaluate_model(loaded_model, X_test, y_test)
+    print("Evaluation Results:", evaluation_results)
+    
