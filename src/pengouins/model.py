@@ -4,6 +4,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 
 
+
 def train_model(  X_train : pd.DataFrame
                 , y_train: pd.Series
                 , model = KNeighborsClassifier(1)) -> object:
