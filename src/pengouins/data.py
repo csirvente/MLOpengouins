@@ -9,16 +9,22 @@ from sklearn.impute import SimpleImputer
 import numpy as np
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
+import warnings
 
 def load_data(path: str) -> pd.DataFrame:
     """Load data from seaborn data,
     put it in cache and return a DataFrame."""
     df = pd.read_csv(path)
     # assuming island column is not needed and present in the dataframe
-    df.drop(columns=["island"], inplace=True)
+    try:
+        df.drop(columns=["island"], inplace=True)
+    except KeyError:
+        warnings.warn(
+            "Column 'island' not found in the dataframe. Skipping drop operation.",
+            UserWarning
+        )
     df.drop_duplicates(inplace=True)
     return df
-    pass
 
 
 def get_X_y(
