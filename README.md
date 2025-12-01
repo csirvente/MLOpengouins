@@ -19,3 +19,6 @@ make setup
 ### Next Steps
 
 For detailed guidelines and project instructions, please read [Guidelines.md](./GUIDELINES.md).
+
+
+### Test travail en équipe !!
