@@ -2,14 +2,15 @@
 Load and preprocess data.
 """
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.impute import SimpleImputer
-import numpy as np
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
 import warnings
+
+import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
 
 def load_data(path: str) -> pd.DataFrame:
     """Load data from seaborn data,
@@ -20,15 +21,14 @@ def load_data(path: str) -> pd.DataFrame:
         df.drop(columns=["island"], inplace=True)
     except KeyError:
         warnings.warn(
-            "Column 'island' not found in the dataframe. Skipping drop operation.",
-            UserWarning
+            "Column 'island' not found in the dataframe. Skipping drop operation.", UserWarning
         )
     df.drop_duplicates(inplace=True)
     return df
 
 
 def get_X_y(
-    df: pd.DataFrame, target_column: str, target:bool = True
+    df: pd.DataFrame, target_column: str, target: bool = True
 ) -> tuple[pd.DataFrame, pd.Series]:
     """Split DataFrame into features and target."""
     # y = df.pop(target_column)
@@ -39,6 +39,7 @@ def get_X_y(
     X = df.drop(columns=[target_column])
     return X, y
 
+
 def split_data(
     X: pd.DataFrame,
     y: pd.Series,
@@ -48,40 +49,28 @@ def split_data(
     """Split data into training and testing sets."""
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
-def preprocess_data(X: pd.DataFrame
-                    ,fit = True, preprocessing_model = None) -> pd.DataFrame:
 
-
+def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.DataFrame:
     """Preprocess data: handle missing values, encode categorical variables, scale numerical features."""
     X_categorical = X.select_dtypes(include=["object"])
     X_numerical = X.select_dtypes(include=["float64", "int64"])
 
-    if fit == True:
+    if fit:
 
         imputerModel = SimpleImputer(strategy="most_frequent")
         scalerModel = StandardScaler()
         onehotencoderModel = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
 
-        numerical_pipeline = Pipeline(steps=[
-            ('imputer', imputerModel),
-            ('scaler', scalerModel)
-        ])
-        categorical_pipeline = Pipeline(steps=[
-            ('onehot', onehotencoderModel)
-        ])
+        numerical_pipeline = Pipeline(steps=[("imputer", imputerModel), ("scaler", scalerModel)])
+        categorical_pipeline = Pipeline(steps=[("onehot", onehotencoderModel)])
         preprocessing_model = ColumnTransformer(
             transformers=[
-                ('num', numerical_pipeline, X_numerical.columns),
-                ('cat', categorical_pipeline, X_categorical.columns)
-            ])
+                ("num", numerical_pipeline, X_numerical.columns),
+                ("cat", categorical_pipeline, X_categorical.columns),
+            ]
+        )
         preprocessing_model.fit(X)
         return preprocessing_model
     else:
         X_transformed = preprocessing_model.transform(X)
         return X_transformed
-
-
-
-
-
-

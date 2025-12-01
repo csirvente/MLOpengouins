@@ -79,7 +79,7 @@ lint:
 	@echo "Running isort..."
 	isort --check-only src/ tests/
 	@echo "Running flake8..."
-	flake8 src/ tests/
+	flake8 --verbose src/ tests/
 	@echo "✅ All linting checks passed!"
 
 .PHONY: format

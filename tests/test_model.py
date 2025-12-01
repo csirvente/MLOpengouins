@@ -1,41 +1,40 @@
 """Tests for model module."""
 
-import pytest
-import pandas as pd
 import numpy as np
+import pandas as pd
+import pytest
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from pengouins.model import train_model, evaluate_model
+
+from pengouins.model import evaluate_model, train_model
 
 
 @pytest.fixture
 def sample_training_data():
     """Create sample training data."""
-    X_train = np.array([
-        [1.0, 2.0, 3.0],
-        [2.0, 3.0, 4.0],
-        [3.0, 4.0, 5.0],
-        [4.0, 5.0, 6.0],
-        [5.0, 6.0, 7.0],
-        [1.5, 2.5, 3.5],
-        [2.5, 3.5, 4.5],
-        [3.5, 4.5, 5.5]
-    ])
-    y_train = pd.Series(['A', 'A', 'B', 'B', 'C', 'A', 'B', 'C'])
-    return pd.DataFrame(X_train, columns=['feature1', 'feature2', 'feature3']), y_train
+    X_train = np.array(
+        [
+            [1.0, 2.0, 3.0],
+            [2.0, 3.0, 4.0],
+            [3.0, 4.0, 5.0],
+            [4.0, 5.0, 6.0],
+            [5.0, 6.0, 7.0],
+            [1.5, 2.5, 3.5],
+            [2.5, 3.5, 4.5],
+            [3.5, 4.5, 5.5],
+        ]
+    )
+    y_train = pd.Series(["A", "A", "B", "B", "C", "A", "B", "C"])
+    return pd.DataFrame(X_train, columns=["feature1", "feature2", "feature3"]), y_train
 
 
 @pytest.fixture
 def sample_test_data():
     """Create sample test data."""
-    X_test = np.array([
-        [1.2, 2.2, 3.2],
-        [3.2, 4.2, 5.2],
-        [4.8, 5.8, 6.8]
-    ])
-    y_test = pd.Series(['A', 'B', 'C'])
-    return pd.DataFrame(X_test, columns=['feature1', 'feature2', 'feature3']), y_test
+    X_test = np.array([[1.2, 2.2, 3.2], [3.2, 4.2, 5.2], [4.8, 5.8, 6.8]])
+    y_test = pd.Series(["A", "B", "C"])
+    return pd.DataFrame(X_test, columns=["feature1", "feature2", "feature3"]), y_test
 
 
 class TestTrainModel:
@@ -46,7 +45,7 @@ class TestTrainModel:
         X_train, y_train = sample_training_data
         model = train_model(X_train, y_train)
         assert model is not None
-        assert hasattr(model, 'predict')
+        assert hasattr(model, "predict")
 
     def test_train_model_default_knn(self, sample_training_data):
         """Test that default model is KNeighborsClassifier."""
@@ -65,7 +64,7 @@ class TestTrainModel:
         """Test that returned model is fitted."""
         X_train, y_train = sample_training_data
         model = train_model(X_train, y_train)
-        assert hasattr(model, 'classes_')
+        assert hasattr(model, "classes_")
 
     def test_train_model_can_predict(self, sample_training_data):
         """Test that trained model can make predictions."""
@@ -81,12 +80,12 @@ class TestTrainModel:
         models_to_test = [
             KNeighborsClassifier(n_neighbors=3),
             DecisionTreeClassifier(random_state=42),
-            RandomForestClassifier(n_estimators=10, random_state=42)
+            RandomForestClassifier(n_estimators=10, random_state=42),
         ]
 
         for model_type in models_to_test:
             model = train_model(X_train, y_train, model=model_type)
-            assert hasattr(model, 'predict')
+            assert hasattr(model, "predict")
             predictions = model.predict(X_train[:1])
             assert len(predictions) == 1
 
@@ -145,7 +144,7 @@ class TestEvaluateModel:
 
         models_to_test = [
             KNeighborsClassifier(n_neighbors=1),
-            DecisionTreeClassifier(random_state=42)
+            DecisionTreeClassifier(random_state=42),
         ]
 
         for model_type in models_to_test:
@@ -158,8 +157,8 @@ class TestEvaluateModel:
         X_train, y_train = sample_training_data
         model = train_model(X_train, y_train)
 
-        X_test_empty = pd.DataFrame(columns=['feature1', 'feature2', 'feature3'])
-        y_test_empty = pd.Series(dtype='object')
+        X_test_empty = pd.DataFrame(columns=["feature1", "feature2", "feature3"])
+        y_test_empty = pd.Series(dtype="object")
 
         with pytest.raises((ValueError, IndexError)):
             evaluate_model(model, X_test_empty, y_test_empty)
@@ -177,8 +176,8 @@ class TestEvaluateModel:
         X_train, y_train = sample_training_data
         model = train_model(X_train, y_train)
 
-        X_test_wrong = pd.DataFrame([[1.0, 2.0]], columns=['feature1', 'feature2'])
-        y_test = pd.Series(['A'])
+        X_test_wrong = pd.DataFrame([[1.0, 2.0]], columns=["feature1", "feature2"])
+        y_test = pd.Series(["A"])
 
         with pytest.raises(ValueError):
             evaluate_model(model, X_test_wrong, y_test)
@@ -213,11 +212,10 @@ class TestIntegration:
 
     def test_train_and_evaluate_multiple_classes(self):
         """Test training with multiple classes."""
-        X_train = pd.DataFrame({
-            'f1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'f2': [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-        })
-        y_train = pd.Series(['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E'])
+        X_train = pd.DataFrame(
+            {"f1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "f2": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
+        )
+        y_train = pd.Series(["A", "A", "B", "B", "C", "C", "D", "D", "E", "E"])
 
         model = train_model(X_train, y_train)
         score = evaluate_model(model, X_train, y_train)
