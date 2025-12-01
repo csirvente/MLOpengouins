@@ -48,3 +48,6 @@ dist/
 
 # Pre-commit
 .pre-commit-config.yaml.backup
+
+#claude copilot
+.claude
