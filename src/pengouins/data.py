@@ -14,6 +14,7 @@ def load_data(path: str) -> pd.DataFrame:
     """Load data from seaborn data,
     put it in cache and return a DataFrame."""
     df = pd.read_csv(path)
+    # assuming island column is not needed and present in the dataframe
     df.drop(columns=["island"], inplace=True)
     df.drop_duplicates(inplace=True)
     return df
