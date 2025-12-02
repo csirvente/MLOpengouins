@@ -7,7 +7,11 @@ from pengouins.registry import load_model, save_model
 url_file = "./data/penguins.csv"
 url_model = "./models/trained_model.pkl"
 url_preprocessing_model = "./models/preprocessing_model.pkl"
+model_path = "./models/"
+data_path = "./data/"
 target_column = "species"
+dataset_name = "penguins"
+dataset_file = "penguins.csv"
 model_name = "penguin_classifier"
 
 
@@ -19,9 +23,9 @@ def create_folders(path):
 
 
 def create_sample_data():
-    create_folders("./data")
-    df_penguins = sns.load_dataset("penguins")
-    df_penguins.to_csv("./data/penguins.csv", index=False)
+    create_folders(data_path)
+    df_penguins = sns.load_dataset(dataset_name)
+    df_penguins.to_csv(f"{data_path}{dataset_file}", index=False)
 
 
 if __name__ == "__main__":
@@ -60,7 +64,7 @@ if __name__ == "__main__":
     print("Evaluation Results on test dataset:", evaluation_results)
 
     # # Save model
-    create_folders("./models")
+    create_folders(model_path)
     save_model(model, url_model)
     save_model(preprocessing_model, url_preprocessing_model)
 
