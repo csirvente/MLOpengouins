@@ -33,7 +33,7 @@ def get_X_y(
     """Split DataFrame into features and target."""
     # y = df.pop(target_column)
     # X = df
-    # Attention le pop fait u deux en un (revnoi la colonne et la supprime du df)
+    # Attention le pop fait un deux en un (renvoi la colonne et la supprime du df)
 
     y = df[target_column]
     X = df.drop(columns=[target_column])
@@ -50,7 +50,7 @@ def split_data(
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 
-def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.DataFrame:
+def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.DataFrame | Pipeline:
     """Preprocess data: handle missing values, encode categorical variables, scale numerical features."""
     X_categorical = X.select_dtypes(include=["object"])
     X_numerical = X.select_dtypes(include=["float64", "int64"])
@@ -61,7 +61,8 @@ def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.D
         scalerModel = StandardScaler()
         onehotencoderModel = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
 
-        numerical_pipeline = Pipeline(steps=[("imputer", imputerModel), ("scaler", scalerModel)])
+        numerical_pipeline = Pipeline(steps=[("imputer", imputerModel),
+                                             ("scaler", scalerModel)])
         categorical_pipeline = Pipeline(steps=[("onehot", onehotencoderModel)])
         preprocessing_model = ColumnTransformer(
             transformers=[
