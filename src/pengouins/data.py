@@ -51,7 +51,8 @@ def split_data(
 
 
 def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.DataFrame | Pipeline:
-    """Preprocess data: handle missing values, encode categorical variables, scale numerical features."""
+    """Preprocess data:
+    handle missing values, encode categorical variables, scale numerical features."""
     X_categorical = X.select_dtypes(include=["object"])
     X_numerical = X.select_dtypes(include=["float64", "int64"])
 
@@ -75,3 +76,4 @@ def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.D
     else:
         X_transformed = preprocessing_model.transform(X)
         return X_transformed
+    
