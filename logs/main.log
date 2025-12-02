@@ -12,3 +12,31 @@
 2025-12-02 10:41:42.231 | INFO     | __main__:<module>:83 - Trained model and preprocessing model loaded.
 2025-12-02 10:41:42.236 | INFO     | __main__:<module>:86 - Validation data preprocessed.
 2025-12-02 10:41:42.240 | INFO     | __main__:<module>:88 - Evaluation Results on validation dataset: 0.9782608695652174
+2025-12-02 13:16:54.034 | INFO     | __main__:<module>:49 - Sample data created.
+2025-12-02 13:16:54.047 | INFO     | __main__:<module>:52 - Data loaded.
+2025-12-02 13:16:54.051 | INFO     | __main__:<module>:55 - Data split into features and target.
+2025-12-02 13:16:54.052 | INFO     | __main__:<module>:61 - Data split into learning and validation sets.
+2025-12-02 13:16:54.054 | INFO     | __main__:<module>:65 - Data split into training and testing sets.
+2025-12-02 13:16:58.176 | INFO     | __main__:<module>:68 - Preprocessing model trained on training data.
+2025-12-02 13:16:58.188 | INFO     | __main__:<module>:72 - Training data preprocessed.
+2025-12-02 13:16:58.203 | INFO     | __main__:<module>:76 - Testing data preprocessed.
+2025-12-02 13:17:00.961 | INFO     | __main__:<module>:80 - Model trained on training data.
+2025-12-02 13:17:00.967 | INFO     | __main__:<module>:84 - Evaluation Results on test dataset: 1.0
+2025-12-02 13:17:00.968 | INFO     | __main__:<module>:91 - Trained model and preprocessing model saved.
+2025-12-02 13:17:00.969 | INFO     | __main__:<module>:96 - Trained model and preprocessing model loaded.
+2025-12-02 13:17:00.986 | INFO     | __main__:<module>:99 - Validation data preprocessed.
+2025-12-02 13:17:00.992 | INFO     | __main__:<module>:101 - Evaluation Results on validation dataset: 0.9782608695652174
+2025-12-02 13:19:18.164 | INFO     | __main__:<module>:49 - Sample data created.
+2025-12-02 13:19:18.167 | INFO     | __main__:<module>:52 - Data loaded.
+2025-12-02 13:19:18.168 | INFO     | __main__:<module>:55 - Data split into features and target.
+2025-12-02 13:19:18.169 | INFO     | __main__:<module>:61 - Data split into learning and validation sets.
+2025-12-02 13:19:18.170 | INFO     | __main__:<module>:65 - Data split into training and testing sets.
+2025-12-02 13:19:18.180 | INFO     | __main__:<module>:68 - Preprocessing model trained on training data.
+2025-12-02 13:19:18.183 | INFO     | __main__:<module>:72 - Training data preprocessed.
+2025-12-02 13:19:18.187 | INFO     | __main__:<module>:76 - Testing data preprocessed.
+2025-12-02 13:19:18.189 | INFO     | __main__:<module>:80 - Model trained on training data.
+2025-12-02 13:19:18.192 | INFO     | __main__:<module>:84 - Evaluation Results on test dataset: 1.0
+2025-12-02 13:19:18.194 | INFO     | __main__:<module>:91 - Trained model and preprocessing model saved.
+2025-12-02 13:19:18.195 | INFO     | __main__:<module>:96 - Trained model and preprocessing model loaded.
+2025-12-02 13:19:18.207 | INFO     | __main__:<module>:99 - Validation data preprocessed.
+2025-12-02 13:19:18.209 | INFO     | __main__:<module>:101 - Evaluation Results on validation dataset: 0.9782608695652174

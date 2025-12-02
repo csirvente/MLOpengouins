@@ -20,16 +20,12 @@ def load_data(path: str) -> pd.DataFrame:
     try:
         df.drop(columns=["island"], inplace=True)
     except KeyError:
-        warnings.warn(
-            "Column 'island' not found in the dataframe. Skipping drop operation.", UserWarning
-        )
+        warnings.warn("Column 'island' not found in the dataframe. Skipping drop operation.", UserWarning)
     df.drop_duplicates(inplace=True)
     return df
 
 
-def get_X_y(
-    df: pd.DataFrame, target_column: str, target: bool = True
-) -> tuple[pd.DataFrame, pd.Series]:
+def get_X_y(df: pd.DataFrame, target_column: str, target: bool = True) -> tuple[pd.DataFrame, pd.Series]:
     """Split DataFrame into features and target."""
     # y = df.pop(target_column)
     # X = df
@@ -62,8 +58,7 @@ def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.D
         scalerModel = StandardScaler()
         onehotencoderModel = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
 
-        numerical_pipeline = Pipeline(steps=[("imputer", imputerModel),
-                                             ("scaler", scalerModel)])
+        numerical_pipeline = Pipeline(steps=[("imputer", imputerModel), ("scaler", scalerModel)])
         categorical_pipeline = Pipeline(steps=[("onehot", onehotencoderModel)])
         preprocessing_model = ColumnTransformer(
             transformers=[
@@ -76,4 +71,3 @@ def preprocess_data(X: pd.DataFrame, fit=True, preprocessing_model=None) -> pd.D
     else:
         X_transformed = preprocessing_model.transform(X)
         return X_transformed
-    

@@ -120,7 +120,7 @@ num_pipe = Pipeline(steps=[
     ('scaler', StandardScaler())
 ])
 cat_pipe = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='most_frequent')),   
+    ('imputer', SimpleImputer(strategy='most_frequent')),
     ('encoder', OneHotEncoder(sparse_output=False, drop="first"))
 ])
 preprocessor = ColumnTransformer(transformers=[
@@ -229,7 +229,7 @@ import os
 
 if not os.path.exists("../models"):
     os.makedirs("../models")
-    
+
 with open("../models/logistic_regression_model.pkl", "wb") as f:
     pickle.dump(logi_final, f)
 ```
